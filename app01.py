@@ -36,6 +36,13 @@ def create_note():
     db.session.commit()
   return redirect("/notes/create")
 
+@app.route("/notes", methods=["GET", "POST"])
+def display_notes():
+  post = Note.query.all()
+  return render_template('index.html', post=post)
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)

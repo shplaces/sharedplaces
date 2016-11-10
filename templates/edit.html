@@ -1,0 +1,39 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> Blog</title>
+    <link rel="stylesheet" href="static/css/foundation.css" />
+    <script src="static/js/vendor/modernizr.js"></script>
+  </head>
+  <body>
+<form action="/edit" method="post">
+  <div class="row">
+    <div class="large-12 columns">
+      <label>Title
+        <input type="text" name="title" value="{{post.title}}"/>
+      </label>
+    </div>
+  </div>
+<div class="row">
+    <div class="large-12 columns">
+      <label>Post
+        <textarea type="text" name="text">{{ post.body}}</textarea>
+      </label>
+    </div>
+  </div>
+        <div class="small-2 columns">
+         <button class="button postfix"  type="submit">Edit</button>
+        </div>
+      </div>
+    </div>
+</div>
+</form>
+<script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+  </body>
+</html>
