@@ -17,6 +17,19 @@ app.config.update(dict(
 ))
 app.config.from_envvar('PLACES_SETTINGS', silent=True)
 
+def init_db():
+    db = get_db()
+    with app.open_resource('schema.sql', mode='r') as f:
+        db.cursor().executescript(f.read())
+    db.commit()
+
+@app.cli.command('initdb')
+def initdb_command():
+    """Initializes the database."""
+    init_db()
+    print 'Initialized the database.'
+
+
 
 def connect_db():
     """Connects to the specific database."""
@@ -74,6 +87,7 @@ def login():
             flash('You were logged in')
             return redirect(url_for('show_entries'))
     return render_template('login.html', error=error)
+
 
 @app.route('/logout')
 def logout():
