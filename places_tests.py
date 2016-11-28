@@ -2,6 +2,10 @@ import os
 import places
 import unittest
 import tempfile
+from coverage import coverage
+
+cov = coverage(branch=True, omit=['templates/*', 'static/*', '/usr/local/*'])
+cov.start()
 
 class PlacesTestCase(unittest.TestCase):
 
@@ -31,6 +35,19 @@ class PlacesTestCase(unittest.TestCase):
         return self.app.get('/logout', follow_redirects=True)
 
 
+
+    def test_comments(self):
+        rv = self.login('admin', 'default')
+        assert 'You were logged in' in rv.data
+        rv = self.logout()
+        assert 'You were logged out' in rv.data
+        rv = self.login('adminx', 'default')
+        assert 'Invalid username' in rv.data
+        rv = self.login('admin', 'defaultx')
+        assert 'Invalid password' in rv.data
+
+
+
     def test_login_logout(self):
         rv = self.login('admin', 'default')
         assert 'You were logged in' in rv.data
@@ -43,5 +60,17 @@ class PlacesTestCase(unittest.TestCase):
 
 
 
+
+
+
+
 if __name__ == '__main__':
-    unittest.main()
+    try:
+        unittest.main()
+    except:
+        pass
+    cov.stop()
+    cov.save()
+    print("\n\nCoverage Report:\n")
+    cov.report()
+    cov.erase()
