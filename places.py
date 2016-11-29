@@ -53,6 +53,7 @@ def close_db(error):
     if hasattr(g, 'sqlite_db'):
         g.sqlite_db.close()
 
+
 @app.route('/')
 def show_entries():
     db = get_db()
@@ -78,10 +79,8 @@ def add_entry():
 def login():
     error = None
     if request.method == 'POST':
-        if request.form['username'] != app.config['USERNAME']:
-            error = 'Invalid username'
-        elif request.form['password'] != app.config['PASSWORD']:
-            error = 'Invalid password'
+        if request.form['username'] != app.config['USERNAME'] or request.form['password'] != app.config['PASSWORD'] :
+            error = 'Invalid username or password!'
         else:
             session['logged_in'] = True
             flash('You were logged in')

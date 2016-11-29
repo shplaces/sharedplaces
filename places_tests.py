@@ -60,9 +60,9 @@ class PlacesTestCase(unittest.TestCase):
         rv = self.login('admin', 'default')
         assert 'You were logged in' in rv.data
         rv = self.login('adminx', 'default')
-        assert 'Invalid username' in rv.data
+        assert 'Invalid username or password' in rv.data
         rv = self.login('admin', 'defaultx')
-        assert 'Invalid password' in rv.data
+        assert 'Invalid username or password' in rv.data
 
 
     def test_logout(self):
